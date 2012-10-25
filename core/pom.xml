@@ -10,6 +10,7 @@
   <artifactId>imageloader-core</artifactId>
   <name>imageloader-core</name>
   <packaging>jar</packaging>
+  <version>1.5.8-Mobiltek-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
