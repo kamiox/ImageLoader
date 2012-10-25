@@ -59,6 +59,12 @@ public class UrlNetworkManager implements NetworkManager {
             conn = openConnection(url);
             conn.setConnectTimeout(settings.getConnectionTimeout());
             conn.setReadTimeout(settings.getReadTimeout());
+            
+            String auth = settings.getBasicAuthorization(); 
+            if (auth != null && !auth.equals("")) {
+            	conn.setRequestProperty("Authorization", "Basic " + auth);
+            }
+            
             if (conn.getResponseCode() == TEMP_REDIRECT) {
                 redirectManually(f, conn);
             } else {
