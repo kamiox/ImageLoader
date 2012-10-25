@@ -23,6 +23,7 @@ import android.os.Build;
 import com.novoda.imageloader.core.cache.CacheManager;
 import com.novoda.imageloader.core.file.util.AndroidFileContext;
 import com.novoda.imageloader.core.file.util.FileUtil;
+import com.novoda.imageloader.core.util.Base64;
 
 /**
  * LoaderSettings is the main class used to customize the behavior of the imageLoader.
@@ -51,6 +52,7 @@ public class LoaderSettings {
     private boolean useAsyncTasks;
     private boolean allowUpsampling;
     private boolean alwaysUseOriginalSize;
+    private String authorizationString;
 
     /**
      * Constructor with all settings set to default values
@@ -183,6 +185,13 @@ public class LoaderSettings {
 		this.alwaysUseOriginalSize = alwaysUseOriginalSize;
 	}
 
+	public void setBasicAuthorization(String user, String password) {
+		this.authorizationString = Base64.encodeToString((user + ":" + password).getBytes(), Base64.NO_WRAP);
+	}
+	
+	public String getBasicAuthorization() {
+		return authorizationString;
+	}
 
 
 	/**
@@ -271,6 +280,11 @@ public class LoaderSettings {
          */
         public SettingsBuilder withoutResizing(boolean alwaysUseOriginalSize ){
         	settings.setAlwaysUseOriginalSize(alwaysUseOriginalSize);
+        	return this;
+        }
+        
+        public SettingsBuilder withBasicAuthorization(String user, String password) {
+        	settings.setBasicAuthorization(user, password);
         	return this;
         }
 
